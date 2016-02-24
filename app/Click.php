@@ -33,4 +33,14 @@ class Click extends Model
     protected $dates = [
         'created_at', 'deleted_at'
     ];
+
+    /**
+     * Defines the relationship between a click and it's url
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function url()
+    {
+        return $this->belongsTo(Url::class);
+    }
 }

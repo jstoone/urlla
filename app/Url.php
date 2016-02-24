@@ -34,4 +34,35 @@ class Url extends Model
     protected $dates = [
         'created_at', 'deleted_at'
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'shortcode';
+    }
+
+    /**
+     * Defines the relationship between a url and it's user
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Defines the relationship between a url and it's clicks
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function clicks()
+    {
+        return $this->hasMany(Click::class);
+    }
+
 }
