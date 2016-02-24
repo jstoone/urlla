@@ -17,6 +17,11 @@ class CreateClicksTable extends Migration
             $table->integer('url_id')->unsigned();
             $table->string('refferer')->nullable();
             $table->timestamps();
+
+            $table->foreign('url_id')
+                ->references('id')
+                ->on('urls')
+                ->onDelete('cascade');
         });
     }
 

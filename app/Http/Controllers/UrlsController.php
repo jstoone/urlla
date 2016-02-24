@@ -11,6 +11,14 @@ use App\Http\Controllers\Controller;
 
 class UrlsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => [
+                'redirect', 'create', 'store'
+            ]
+        ]);
+    }
     /**
      * Display a listing of the url.
      *
@@ -18,7 +26,6 @@ class UrlsController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -80,11 +87,14 @@ class UrlsController extends Controller
     /**
      * Display the specified url.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  App\Url  $url
      * @return \Illuminate\Http\Response
      */
-    public function redirect(Url $url)
+    public function redirect(Request $request, Url $url)
     {
+        $url->clicks()->create([]);
+
         return redirect($url->destination);
     }
 

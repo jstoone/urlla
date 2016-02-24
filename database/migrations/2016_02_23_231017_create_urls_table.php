@@ -16,7 +16,7 @@ class CreateUrlsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('destination');
-            $table->string('shortcode');
+            $table->string('shortcode')->index();
             $table->timestamps();
             $table->softDeletes();
 
