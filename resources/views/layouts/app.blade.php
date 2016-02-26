@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="row">
-        @yield('content')
+            @yield('content')
         </div>
     </div>
 

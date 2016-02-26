@@ -15,7 +15,7 @@ class UrlsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => [
-                'redirect', 'create', 'store'
+                'redirect', 'create', 'store',
             ]
         ]);
     }
@@ -26,6 +26,9 @@ class UrlsController extends Controller
      */
     public function index()
     {
+        $urls = auth()->user()->urls()->latest()->get();
+
+        return view('url.index', compact('urls'));
     }
 
     /**
@@ -60,7 +63,10 @@ class UrlsController extends Controller
             $destination .= $startTag . $utmParameters;
         }
 
-        $url = auth()->user()->urls()->create([
+        $userId = auth()->id();
+
+        $url = Url::create([
+            'user_id' => $userId,
             'destination' => $destination,
         ]);
 
@@ -101,12 +107,20 @@ class UrlsController extends Controller
     /**
      * Show the form for editing the specified url.
      *
-     * @param  int  $id
+     * @param  App\Url  $url
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Url $url)
     {
-        //
+        $urlValues = collect([
+            'base' => $url->base(),
+            'utm_source' => $url->utm()->source,
+            'utm_medium' => $url->utm()->medium,
+            'utm_campaign' => $url->utm()->campaign,
+        ]);
+
+        dd($urlValues);
+        return view('url.edit', compact('url'));
     }
 
     /**

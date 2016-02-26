@@ -3,7 +3,7 @@
     <label class="col-md-4 control-label">Url destination</label>
 
     <div class="col-md-6">
-        <input type="text" class="form-control" name="destination" value="{{ old('destination') }}">
+        <input type="text" class="form-control" name="destination" value="{{ $url->base() or old('destination') }}">
 
         @if ($errors->has('destination'))
             <span class="help-block">

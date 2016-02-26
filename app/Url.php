@@ -65,4 +65,31 @@ class Url extends Model
         return $this->hasMany(Click::class);
     }
 
+    /**
+     * Get the destination url without GET parameters
+     * 
+     * @return string
+     */
+    public function base()
+    {
+        $urlParts = explode('?', $this->destination);
+
+        return $urlParts[0];
+    }
+
+    public function utm()
+    {
+        $utmKeys = ['utm_source', 'utm_medium', 'utm_campaign'];
+        $urlParts = explode('?', $this->destination);
+        $getParams = array_filter(explode("&", $urlParts[1]), function($value) {
+            return starts_with($value, 'utm_');
+        });
+
+        $getParams = array_combine($utmKeys, $getParams);
+        $utmCollection = collect($getParams);
+
+        dd($utmCollection->get('utm_source'));
+
+    }
+
 }

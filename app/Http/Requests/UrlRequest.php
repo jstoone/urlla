@@ -13,7 +13,7 @@ class UrlRequest extends Request
      */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     /**
